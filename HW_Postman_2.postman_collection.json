@@ -20,7 +20,7 @@
 							"\r",
 							"// Проверить, что в body приходит правильный string\r",
 							"pm.test(\"Correct type string\", function () {\r",
-							"\tpm.expect(pm.response.text()).to.include(\"This is the first responce from server!\");\r",
+							"\tpm.expect(pm.response.text()).to.eql(\"This is the first responce from server!\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -110,7 +110,7 @@
 							"\r",
 							"// //Проверить, что salary в ответе равно salary s request (salary забрать из request.)\r",
 							"pm.test(\"Correct salary_req\", function () {\r",
-							"    pm.expect(jsonData.salary).to.eql(Number(req.salary))\r",
+							"    pm.expect(+jsonData.salary).to.eql(+req.salary)\r",
 							"});\r",
 							"\r",
 							"// //Вывести в консоль параметр family из response.\r",
@@ -195,7 +195,7 @@
 							"\r",
 							"// 7. Проверить, что salary в ответе равно salary s request (salary забрать из request.)\r",
 							"pm.test(\"Correct salary\", function () {\r",
-							"    pm.expect(jsonData.salary).to.eql(+reqData.salary)\r",
+							"    pm.expect(+jsonData.salary).to.eql(+reqData.salary)\r",
 							"    })\r",
 							"\r",
 							"// 8. Вывести в консоль параметр family из response.\r",
@@ -203,21 +203,21 @@
 							"\r",
 							"// 9. Проверить, что у параметра dog есть параметры name.\r",
 							"pm.test(\"Dog includes name\"), function () {\r",
-							"    pm.expect(jsonData.family.pets.dog).to.include(\"name\")\r",
+							"    pm.expect(jsonData.family.pets.dog).to.have.property(\"name\")\r",
 							"}\r",
 							"\r",
 							"// 10. Проверить, что у параметра dog есть параметры age.\r",
 							"pm.test(\"Dog includes age\", function () {\r",
-							"    pm.expect(JSON.stringify(jsonData.family.pets.dog)).to.include(\"age\")\r",
+							"    pm.expect(jsonData.family.pets.dog).to.have.property(\"age\")\r",
 							"})\r",
 							"\r",
 							"// 11. Проверить, что параметр name имеет значение Luky.\r",
 							"pm.test(\"Dog name Luky\", function () {\r",
-							"    pm.expect(JSON.stringify(jsonData.family.pets.dog)).to.include(\"Luky\")\r",
+							"    pm.expect(jsonData.family.pets.dog.name).to.eql(\"Luky\")\r",
 							"})\r",
 							"// 12. Проверить, что параметр age имеет значение 4.\r",
 							"pm.test(\"Dog age 4\", function () {\r",
-							"    pm.expect(JSON.stringify(jsonData.family.pets.dog)).to.include(\"4\")\r",
+							"    pm.expect(jsonData.family.pets.dog.age).to.eql(4)\r",
 							"})"
 						],
 						"type": "text/javascript"
@@ -468,8 +468,10 @@
 							"\r",
 							"// jsonData.person.forEach((i) => {console.log(i)})\r",
 							"for (let i in jsonData.person) {\r",
-							"    console.log(i)\r",
-							"}"
+							"    // console.log(`${i}: ${responseInJson[i]}`)\r",
+							"    console.log([i] + \": \" + jsonData.person[i])\r",
+							"}\r",
+							""
 						],
 						"type": "text/javascript"
 					}
